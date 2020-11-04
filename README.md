@@ -1,6 +1,1 @@
-# auto_shark
-# auto_shark
-# auto_shark
-# auto_shark2
-# auto_shark2
-# karina
+Final Automation Shark Project and Repository for Score the POC help us create a more automated experiences for the event judges and score presentation. 
