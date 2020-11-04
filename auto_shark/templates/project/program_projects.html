@@ -1,0 +1,75 @@
+{% extends "main/layout.html" %}
+{% block title %} Product Template {% endblock %}
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="hero1">
+        <h1>{{ program.program_name }} <p><small>by GDL Automation Guild</small></p></h1>
+        <p>{{ program.description }}</p>
+
+    <div class="subtitle">
+         Browse the Program Projects
+            <p><small><a href="{{ url_for('main.home') }}">
+                 return to browse for other programs
+            </a></small></p>
+    </div>
+
+    <div class="container_product_list">
+
+        <div class="row">
+           <div class="col-md-1"></div>
+
+            <div class="col-md-10">
+
+            {% if get_program == projects.program_id %}
+                {% for project in projects %}
+
+                 <div class="categories">
+
+                                {% if current_user.role == "user" %}
+                                <img class="account-img" src="{{ url_for('static', filename='photos/' + project.image_file) }}" >
+                                <div class="title"><a href="{{ url_for('projects.project', id=project.id) }}">{{ project.project_name }} </a></div>
+                                 <div class="title"><p>Status: {{ project.status }} </p></div>
+                                {% endif %}
+
+                                {% if current_user.role == "admin" %}
+                                <img class="account-img" src="{{ url_for('static', filename='photos/' + project.image_file) }}" >
+                                <div class="title"><a href="{{ url_for('projects.project', id=project.id) }}">{{ project.project_name }} </a></div>
+                                 <div class="title"><p>Status: {{ project.status }} </p></div>
+                                {% endif %}
+
+                                {% if current_user.role == "coach" %}
+                                <img class="account-img" src="{{ url_for('static', filename='photos/' + project.image_file) }}" >
+                                <div class="title"><a href="{{ url_for('projects.project', id=project.id) }}">{{ project.project_name }} </a></div>
+                                 <div class="title"><p>Status: {{ project.status }} </p></div>
+                                {% endif %}
+
+                                {% if current_user.role == "judge" %}
+
+                                    <img class="account-img" src="{{ url_for('static', filename='photos/' + project.image_file) }}" >
+                                 <div class="title"><a href="{{ url_for('finals.project_form', id=project.id) }}"><p>{{ project.project_name }}</p> Evaluation Form </a></div>
+
+                                {% endif %}
+                            </div>
+
+                {% endfor %}
+
+                <hr>
+
+            {% endif %}
+
+            </div>
+
+            <div class="col-md-1"></div>
+        </div>
+        </div>
+    </div>
+ </div>
+
+
+
+{% endblock main_content %}

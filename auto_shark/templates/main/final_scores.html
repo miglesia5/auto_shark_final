@@ -1,0 +1,209 @@
+{% extends 'main/layout.html' %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="container">
+    {% if current_user.is_authenticated %}
+
+    <div class="hero">
+        <h1>Automation Sharks</h1>
+
+    <small>
+       Final Program Scores
+    </small>
+    <p>The Program awarded points for each playback presented
+        the following Modules
+        Automation Frameworks, KPIs, EDT, awarded up to 5 Points each
+        and the Open Source lab gave 1 additional point. Thus creating the score table below
+     </p>
+    </div>
+
+    <div class="stats">
+        <div class="stat"><a href="{{ url_for('main.home') }}"> Back Home</a></div>
+   {% if current_user.role == "admin" %}
+        <div class="stat"><a href="{{ url_for('admins.index') }}"> Back to Console</a></div>
+
+        <div class="stat"><a href="{{ url_for('modules.new_evaluation') }}"> Add New Evaluation</a></div>
+    {% endif %}
+    <p>For the Final Event The finalist will be able to present to our 5 Campus Judges. Based on the categories
+        the judges will be able to award up to 5 points adding to the points earn by each Project, to determined
+        the 2020 Automation Shark Winner.
+    </p>
+    <H1>FINAL SCORES WILL BE AVAILABLE ON OCT 12TH</H1>
+
+
+    </div>
+ 
+        <div class="row">
+        <div class="col-md-0"></div>
+            <div class="col-md-12">
+
+                <div class="content-section-admin-user">
+
+                <legend class="border-bottom mb-2">Program Modules Scores</legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-sm  table-striped" id="Cart">
+
+                              <tr>
+                                  <th>Project</th>
+                                  <th> Modules Scores </th>
+                                  <th> Judges Scores (Average) </th>
+                                  <th> Final Score  </th>
+
+                              </tr>
+
+                                  <td>Global Sales Portal Automation</td>
+                                  <td> {{ team_1_module }} </td>
+                                  <td> {{ "{0:.1f}".format(team_1_score) }} </td>
+                                   <td> {{ "{0:.1f}".format(final_1) }} </td>
+
+                              </tr>
+                              <tr>
+                                <td>Dashboard - Failing Orders</td>
+                                  <td> {{ team_2_module }} </td>
+                                 <td> {{ "{0:.1f}".format(team_2_score) }}</td>
+                                  <td> {{ "{0:.2f}".format(final_2) }} </td>
+
+                              </tr>
+                              <tr>
+                                  <td>Our New CDFA & HOLDS Tool Automation</td>
+                                   <td> {{ team_3_module }} </td>
+                                  <td> {{ "{0:.1f}".format(team_3_score) }}</td>
+                                  <td> {{ "{0:.1f}".format(final_3) }} </td>
+                              </tr>
+                              <tr>
+                                 <td>Power Measures in a Sec. Automation</td>
+                                   <td> {{ team_4_module }} </td>
+                                   <td> {{ "{0:.1f}".format(team_4_score) }}</td>
+                                   <td> {{ "{0:.1f}".format(final_4) }} </td>
+
+                              </tr>
+                              <tr>
+                                 <td>Supply Constraint Power Automation</td>
+                                  <td> {{ team_5_module }} </td>
+                                  <td> {{ "{0:.1f}".format(team_5_score) }}</td>
+                                  <td> {{ "{0:.1f}".format(final_5) }} </td>
+
+                              </tr>
+                              <tr>
+                                 <td>ICA and Expenses Admin Automation</td>
+                                   <td> {{ team_6_module }} </td>
+                                   <td> {{ "{0:.1f}".format(team_6_score) }}</td>
+                                   <td> {{ "{0:.1f}".format(final_6) }} </td>
+
+                              </tr>
+                            <tr>
+                                  <td>Export Accrual for TMO invoices</td>
+                                    <td> {{ team_7_module }} </td>
+                                    <td> {{ "{0:.1f}".format(team_7_score) }}</td>
+                                    <td> {{ "{0:.1f}".format(final_7) }} </td>
+
+                              </tr>
+                            <tr>
+                                 <td>Smart Operational KPI Automation</td>
+                                   <td> {{ team_8_module }} </td>
+                                   <td> {{ "{0:.1f}".format(team_8_score) }}</td>
+                                   <td> {{ "{0:.1f}".format(final_8) }} </td>
+
+                              </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-0"></div>
+        </div>
+
+    {% if current_user.role == "admin" %}
+ <div class="row">
+        <div class="col-md-0"></div>
+            <div class="col-md-12">
+
+                <div class="content-section-admin-user">
+
+                <legend class="border-bottom mb-2">Program Modules Scores</legend>
+
+                    <div class="table-responsive">
+                        <table class="table table-sm  table-striped" id="Cart">
+
+                              <tr>
+                                  <th>Project</th>
+                                  <th> Modules Scores </th>
+                                  <th> Judges Scores (Average) </th>
+                                  <th> Final Score  </th>
+
+                              </tr>
+
+                              <tr>
+                                  <td>Global Sales Portal Automation</td>
+                                  <td> {{ team_1_module }} </td>
+                                  <td> {{ team_1_score }} </td>
+                                   <td> {{ final_1 }} </td>
+
+                              </tr>
+                              <tr>
+                                <td>Dashboard - Failing Orders</td>
+                                  <td> {{ team_2_module }} </td>
+                                 <td> {{ team_2_score }}</td>
+                                  <td> {{ final_2 }} </td>
+
+                              </tr>
+                              <tr>
+                                  <td>Our New CDFA & HOLDS Tool Automation</td>
+                                   <td> {{ team_3_module }} </td>
+                                  <td> {{ team_3_score }}</td>
+                                  <td> {{ final_3 }} </td>
+                              </tr>
+                              <tr>
+                                 <td>Power Measures in a Sec. Automation</td>
+                                   <td> {{ team_4_module }} </td>
+                                   <td> {{ team_4_score }}</td>
+                                   <td> {{ final_4 }} </td>
+
+                              </tr>
+                              <tr>
+                                 <td>Supply Constraint Power Automation</td>
+                                  <td> {{ team_5_module }} </td>
+                                  <td> {{ team_5_score }}</td>
+                                  <td> {{ final_5 }} </td>
+
+                              </tr>
+                              <tr>
+                                 <td>ICA and Expenses Admin Automation</td>
+                                   <td> {{ team_6_module }} </td>
+                                   <td> {{ team_6_score }}</td>
+                                   <td> {{ final_6 }} </td>
+
+                              </tr>
+                            <tr>
+                                  <td>Export Accrual for TMO invoices</td>
+                                    <td> {{ team_7_module }} </td>
+                                    <td> {{ team_7_score }}</td>
+                                    <td> {{ final_7 }} </td>
+
+                              </tr>
+                            <tr>
+                                 <td>Smart Operational KPI Automation</td>
+                                   <td> {{ team_8_module }} </td>
+                                   <td> {{ team_8_score }}</td>
+                                   <td> {{ final_8 }} </td>
+
+                              </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-0"></div>
+        </div>
+
+    {% endif %}
+    {% endif %}
+
+{% endblock main_content %}

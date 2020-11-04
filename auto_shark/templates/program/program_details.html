@@ -1,0 +1,92 @@
+{% extends "main/layout.html" %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="hero">
+    <div class="container_category_list">
+         <div class="categories">
+            <img src="{{ url_for('static', filename='photos/' + program.image_file) }}">
+
+        </div>
+        </div>
+            <div class="sub-hero">
+                {{ program.program_name }}
+            </div>
+        </div>
+
+     <div class="project-list container">
+            <div class="row">
+
+                <div class="col-sm-2 nav-sidebar-section">
+                    <h3>Statistics</h3>
+                    <p></p>
+                     <hr>
+                </div>
+
+                <div class="col-sm-7">
+
+                    <h2>Program Description</h2>
+
+                    <pre>Summary </pre>
+                    <p class="summary">
+                       {{ program.description }}
+                    </p>
+
+                <hr>
+
+                     {% if current_user.role == "admin" %}
+                         <div class="buttons">
+                             <td scope="col"> <a class="btn btn-secondary btn-sm mt-1 mb-1" href="/program/{{ program.id }}/update">Edit</a> </td>
+
+                             <td scope="col"> <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Erase</button></td>
+
+                              <td scope="col"> <a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('admins.index') }}">Return to Console</a> </td>
+
+                             <!-- Modal -->
+                             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                             <h5 class="modal-title" id="deleteModalLabel">Erase Project?</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                         </div>
+
+                                         <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                             <form action="{{ url_for('programs.delete_program', id=program.id) }}" method="POST">
+                                                 <input class="btn btn-danger" type="submit" value="Delete">
+                                             </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     {% endif %}
+                </div>
+                 <div class="col-sm-3">
+                  <div class="buttons">
+                      <td scope="col"> <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('main.home') }}">Return</a> </td>
+                  </div>
+                    <p></p>
+                    <div class="border-top pt-3"></div>
+                    </div>
+
+                    <div class="border-top pt-3"></div>
+                    </div>
+
+                    <hr>
+                </div>
+            </div>
+    </div>
+    </div>
+
+
+
+{% endblock main_content %}

@@ -1,0 +1,200 @@
+{% extends "main/layout.html" %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="hero">
+    <div class="container_category_list">
+         <div class="categories">
+             <img src="{{ url_for('static', filename='photos/' + final.image_file) }}">
+
+        </div>
+        </div>
+            <div class="sub-hero">
+               <h1> {{ final.project_name }}</h1>
+            </div>
+
+
+     <div class="project-list container">
+            <div class="row">
+
+                <div class="col-sm-1 nav-sidebar-section">
+                    <h3>Statistics</h3>
+                    <p></p>
+                    <hr>
+                    <h6> FTEs Saving: {{ (final.fte_saving) }}</h6>
+                    <hr>
+                    <h6> Status: {{ (final.status) }} </h6>
+                    <p></p>
+                    <hr>
+                    <h6> Essays: <a href="https://ibm.ent.box.com/folder/122722053657">Link</a>
+                        <hr>
+                        <td scope="col"> <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('main.home') }}">Return</a> </td>
+                </div>
+
+                <div class="col-sm-7">
+
+                    <h2>Projec Description</h2>
+
+                    <pre>Summary | Detail & Business Impact </pre>
+                    <p class="summary">
+                       {{ final.description }}
+                    </p>
+
+                <hr>
+
+                    <p class="summary">
+                       <strong>Business Impact: </strong>{{ final.business_impact }}
+                    </p>
+
+                     {% if current_user.role == "admin" %}
+                         <div class="buttons">
+                             <td scope="col"> <a class="btn btn-secondary btn-sm mt-1 mb-1" href="/project/{{ project.id }}/update">Edit</a> </td>
+
+                             <td scope="col"> <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Erase</button></td>
+
+                              <td scope="col"> <a class="btn btn-success btn-sm mt-1 mb-1" href="{{ url_for('admins.index') }}">Return to Console</a> </td>
+
+                             <!-- Modal -->
+                             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                             <h5 class="modal-title" id="deleteModalLabel">Erase Project?</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                         </div>
+
+                                         <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                             <form action="{{ url_for('projects.delete_project', id=project.id) }}" method="POST">
+                                                 <input class="btn btn-danger" type="submit" value="Delete">
+                                             </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     {% endif %}
+
+
+
+                </div>
+
+                 <div class="col-sm-4">
+                    <h3>Add your Feedback</h3>
+                        <form method="POST" action="">
+                            {{ form.hidden_tag() }}
+
+                                <div class="form-group-dropdown">
+
+                                    <div class="evaluation_form">Automation Frameworks</div>
+
+                                    {% if form.automation_frameworks.errors %}
+                                        {{ form.automation_frameworks(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.automation_frameworks.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.automation_frameworks(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+
+                                    <div class="evaluation_form">Key Performances Indicators</div>
+
+                                   {% if form.kpis.errors %}
+                                        {{ form.kpis(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.kpis.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.kpis(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+
+                                    <div class="evaluation_form">Enterprise Design Thinking</div>
+
+                                   {% if form.edt.errors %}
+                                        {{ form.edt(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.edt.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.edt(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+
+                                    <div class="evaluation_form">Open Source</div>
+                                   {% if form.opensource.errors %}
+                                        {{ form.opensource(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.opensource.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.opensource(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+
+                                    <div class="evaluation_form">Intellectual Capital</div>
+                                   {% if form.intellectual_capital.errors %}
+                                        {{ form.intellectual_capital(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.intellectual_capital.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.intellectual_capital(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+
+                                    <div class="evaluation_form">Presentation Skills</div>
+                                   {% if form.presentation_skills.errors %}
+                                        {{ form.presentation_skills(class="dropdown" ) }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.presentation_skills.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.presentation_skills(class="btn btn-secondary dropdown-toggle") }}
+                                    {% endif %}
+
+                                <div class="evaluation_form"> | </div>
+                                {{ form.submit(class="btn btn-primary") }}
+                            </div>
+                        </form>
+
+                    <div class="border-top pt-3"></div>
+                    </div>
+
+                    <div class="border-top pt-3"></div>
+                    </div>
+
+                    <hr>
+
+
+                </div>
+            </div>
+
+
+    </div>
+
+    </div>
+
+
+
+{% endblock main_content %}

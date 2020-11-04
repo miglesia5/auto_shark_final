@@ -1,0 +1,145 @@
+{% extends 'main/layout.html' %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="container">
+    {% if current_user.is_authenticated %}
+
+    <div class="hero">
+        <h1>Automation Sharks</h1>
+
+    <small>
+       Modules Coaches Overview
+    </small>
+    </div>
+
+    <div class="stats">
+        <div class="stat"><a href="{{ url_for('main.home') }}"> Back Home</a></div>
+    {% if current_user.is_authenticated %}
+        <div class="stat"><a href="{{ url_for('admins.index') }}"> Back to Console</a></div>
+    {% endif %}
+    {% if current_user.role == "admin" %}
+         <div class="stat"><a href="{{ url_for('modules.new_evaluation') }}"> Add New Evaluation</a></div>
+    {% endif %}
+
+    </div>
+
+
+        {% if current_user.role == "admin" %}
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+
+                <div class="content-section-admin-user">
+
+                <legend class="border-bottom mb-2">All Projects</legend>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Automation Frameworks</th>
+                                <th scope="col">Key Performances Indicators</th>
+                                <th scope="col">Design Thinking </th>
+                                <th scope="col">OpenSource</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for m in modules %}
+
+                                <td scope="col"> {{ m.result }}</td>
+                                <td scope="col"> {{ m.automation_frameworks_score }}
+                                    <a class="btn btn-success btn-sm m-1" href="{{ url_for('modules.grade_automation_frameworks', id=m.id) }}">Grade</a>
+                                </td>
+                                <td scope="col"> {{ m.kpis_score }}
+                                    <a class="btn btn-success btn-sm m-1" href="{{ url_for('modules.grade_KPIs', id=m.id) }}">Grade</a>
+                                </td>
+                                <td scope="col"> {{ m.edt_score }}
+                                    <a class="btn btn-success btn-sm m-1" href="{{ url_for('modules.grade_EDT', id=m.id) }}">Grade</a>
+                                </td>
+                                <td scope="col"> {{ m.opensource_score }}
+                                    <a class="btn btn-success btn-sm m-1" href="{{ url_for('modules.grade_opensource', id=m.id) }}">Grade</a>
+                                </td>
+                                <td scope="col">
+                                <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('projects.project', id=m.id) }}">Detail</a>
+                                </td>
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-0">
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+
+                <div class="content-section-admin-user">
+
+                <legend class="border-bottom mb-2">All Projects</legend>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th scope="col">Project Name</th>
+                                <th scope="col">Automation Frameworks</th>
+                                <th scope="col">Key Performances Indicators</th>
+                                <th scope="col">Design Thinking </th>
+                                <th scope="col">OpenSource</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for m in modules %}
+
+                                <td scope="col"> {{ m.result }}</td>
+                                <td scope="col"> {{ m.automation_frameworks_score }}
+                                </td>
+                                <td scope="col"> {{ m.kpis_score }}
+                                </td>
+                                <td scope="col"> {{ m.edt_score }}
+                                </td>
+                                <td scope="col"> {{ m.opensource_score }}
+                                </td>
+                                <td scope="col">
+                                <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('projects.project', id=m.id) }}">Detail</a>
+
+                                </td>
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-0">
+        </div>
+
+
+    {% endif %}
+
+{% endblock main_content %}

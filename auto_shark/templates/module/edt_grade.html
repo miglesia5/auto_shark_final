@@ -1,0 +1,55 @@
+{% extends "main/layout.html" %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+{% endblock %}
+
+{% block main_content %}
+    {% if current_user.role == "admin" %}
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enterprise Design Thinking: {{ module.result }}</legend>
+
+                <div class="form-group">
+                    {{ form.edt_score.label(class="form-control-label") }}
+                    {% if form.edt_score.errors %}
+                        {{ form.edt_score(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.edt_score.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.edt_score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.edt_comments.label(class="form-control-label") }}
+                    {% if form.edt_comments.errors %}
+                        {{ form.edt_comments(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.edt_comments.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.edt_comments(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+     <div class="border-top pt-3">
+
+    </div>
+    </div>
+     {% endif %}
+{% endblock main_content %}

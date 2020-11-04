@@ -1,0 +1,102 @@
+{% extends "main/layout.html" %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <div class="content-section">
+
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">New Project</legend>
+
+                <div class="form-group">
+                    {{ form.project_name.label(class="form-control-label") }}
+                    {% if form.project_name.errors %}
+                        {{ form.project_name(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.project_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.project_name(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.description.label(class="form-control-label") }}
+
+                    {% if form.description.errors %}
+                        {{ form.description(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.description(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.business_impact.label(class="form-control-label") }}
+
+                    {% if form.business_impact.errors %}
+                        {{ form.business_impact(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.business_impact.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.business_impact(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.members.label(class="form-control-label") }}
+
+                    {% if form.members.errors %}
+                        {{ form.members(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.members.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.members(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.fte_saving.label(class="form-control-label") }}
+
+                    {% if form.fte_saving.errors %}
+                        {{ form.fte_saving(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.fte_saving.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.fte_saving(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+
+            </fieldset>
+
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+     <div class="border-top pt-3">
+
+    </div>
+    </div>
+{% endblock main_content %}

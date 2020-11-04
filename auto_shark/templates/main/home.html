@@ -1,0 +1,62 @@
+{% extends 'main/layout.html' %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}">
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="hero1">
+        <h1>Automation@GDL<p><small>by GDL Automation Guild</small></p></h1>
+
+        <div class="subtitle">
+           Browse each Program and details...
+            <p><small><a href="{{ url_for('main.scores') }}">
+                or visit the most current score tables and standings
+            </a></small></p>
+        </div>
+
+        <div class="sub-home">
+
+            <div class="container_category_list">
+                <div class="row">
+
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-10">
+
+                        {% for program in programs %}
+
+                        <div class="categories">
+                            <img class="account-img" src="{{ url_for('static', filename='photos/' + program.image_file) }}" >
+
+
+                        {% if current_user.role == "admin" %}
+                            <div class="title"><a href="{{ url_for('main.project_program', program_name=program.program_name) }}">{{ program.program_name }} Browse Projects </a></div>
+                         {% endif %}
+
+                        {% if current_user.role == "user" %}
+                            <div class="title"><a href="{{ url_for('main.project_program', program_name=program.program_name) }}">{{ program.program_name }} Browse Projects </a></div>
+                         {% endif %}
+
+
+                        {% if current_user.role == "judge" %}
+                             <div class="title"><a  href="{{ url_for('finals.finals_overview') }}">Evaluation Forms</a></div>
+                         {% endif %}
+                             </div>
+
+                        {% endfor %}
+                    <hr>
+
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock main_content %}
+

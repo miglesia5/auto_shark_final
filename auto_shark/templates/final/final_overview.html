@@ -1,0 +1,228 @@
+{% extends 'main/layout.html' %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="container">
+    {% if current_user.is_authenticated %}
+
+    <div class="hero">
+        <h1>Automation Sharks</h1>
+
+    <small>
+       Final Judges Overview
+    </small>
+
+
+    <div class="stats">
+        <div class="stat"><a href="{{ url_for('main.home') }}"> Back Home</a></div>
+        {% if current_user.role == "admin" %}
+        <div class="stat"><a href="{{ url_for('admins.index') }}"> Back to Console</a></div>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-0"></div>
+        <div class="col-md-12">
+        {% if current_user.role == "judge" %}
+        {# Evaluations #}
+            <div class="content-section-admin-user">
+                <legend class="border-bottom mb-2">Evaluations</legend>
+                <td class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th scope="col">Project</th>
+
+                                <th class="header"  scope="col">Automation Frameworks</th>
+                                <th class="header"  scope="col">KPIs</th>
+                                <th class="header"  scope="col">Design Thinking </th>
+                                <th class="header"  scope="col">OpenSource</th>
+                                <th class="header"  scope="col">Intellectual Capital</th>
+                                <th class="header"  scope="col">Presentation Skills</th>
+                                <th class="header"  scope="col">Average</th>
+                                <th class="header"  scope="col">Action</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for f in finals %}
+                                {% if f.status == "pending" %}
+
+                                <td class="header"  scope="col"> {{ f.project_name }}</td>
+                                <td class="header"  scope="col"> {{ f.automation_frameworks }}</td>
+                                <td class="header"  scope="col"> {{ f.kpis }}</td>
+                                <td class="header"  scope="col"> {{ f.edt }}</td>
+                                <td class="header"  scope="col"> {{ f.opensource }}</td>
+                                <td class="header"  scope="col"> {{ f.intellectual_capital }}</td>
+                                <td class="header"  scope="col"> {{ f.presentation_skills }}</td>
+
+
+                                <td class="header"  scope="col">  {{ "{0:.1f}".format(((f.automation_frameworks)+(f.kpis)+
+                                        (f.edt)+(f.opensource)+(f.intellectual_capital)+(f.presentation_skills))/6) }}
+                                </td>
+
+
+                                <td ><a class = "btn btn-primary btn-sm m-1" href="{{ url_for('finals.final', final_evaluation_id=f.final_evaluation_id) }}">Evaluate</a></td>
+
+                                <td scope="col">
+                                </td>
+                                </tr>
+
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+        {# Complete Evaluations #}
+            <div class="content-section-admin-user">
+                <legend class="border-bottom mb-2">Evaluations Completed</legend>
+                <td class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th scope="col">Project</th>
+
+                                <th class="header"  scope="col">Automation Frameworks</th>
+                                <th class="header"  scope="col">KPIs</th>
+                                <th class="header"  scope="col">Design Thinking </th>
+                                <th class="header"  scope="col">OpenSource</th>
+                                <th class="header"  scope="col">Intellectual Capital</th>
+                                <th class="header"  scope="col">Presentation Skills</th>
+                                <th class="header"  scope="col">Average</th>
+                                <th class="header"  scope="col">Action</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+
+                            {% for f in finals %}
+                                {% if f.status == "Evaluation Complete" %}
+
+                                <td class="header"  scope="col"> {{ f.project_name }}</td>
+                                <td class="header"  scope="col"> {{ f.automation_frameworks }}</td>
+                                <td class="header"  scope="col"> {{ f.kpis }}</td>
+                                <td class="header"  scope="col"> {{ f.edt }}</td>
+                                <td class="header"  scope="col"> {{ f.opensource }}</td>
+                                <td class="header"  scope="col"> {{ f.intellectual_capital }}</td>
+                                <td class="header"  scope="col"> {{ f.presentation_skills }}</td>
+
+
+                                <td class="header"  scope="col">  {{ "{0:.1f}".format(((f.automation_frameworks)+(f.kpis)+
+                                        (f.edt)+(f.opensource)+(f.intellectual_capital)+(f.presentation_skills))/6) }}
+                                </td>
+
+
+                                <td ><a class = "btn btn-secondary btn-sm m-1" href="{{ url_for('finals.final', final_evaluation_id=f.final_evaluation_id) }}"> Update</a></td>
+
+                                <td scope="col">
+                                </td>
+                                </tr>
+
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+        {% endif %}
+
+
+          {% if current_user.role == "admin" %}
+              <div class="content-section-admin-user">
+                <legend class="border-bottom mb-2">Evaluations</legend>
+                <div class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th class="header"  scope="col">Judge Name</th>
+                                <th class="header"  scope="col">Project Name</th>
+                                <th class="header"  scope="col">Automation Frameworks</th>
+                                <th class="header"  scope="col">KPIs</th>
+                                <th class="header"  scope="col">Design Thinking </th>
+                                <th class="header"  scope="col">OpenSource</th>
+                                <th class="header"  scope="col">Intellectual Capital</th>
+                                <th class="header"  scope="col">Presentation Skills</th>
+                                <th class="header"  scope="col">Average</th>
+                                <th class="header"  scope="col">Actions</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for f in finals %}
+
+                                <td class="header"  scope="col"> {{ f.judge }}</td>
+                                <td class="header"  scope="col"> {{ f.project_name }}</td>
+                                <td class="header"  scope="col"> {{ f.automation_frameworks }}
+                                </td>
+                                <td class="header"  scope="col"> {{ f.kpis }}
+                                </td>
+                                <td class="header"  scope="col"> {{ f.edt }}
+                                </td>
+                                <td class="header"  scope="col"> {{ f.opensource }}
+                                </td>
+                                <td class="header"  scope="col"> {{ f.intellectual_capital }}
+                                </td>
+                                <td class="header"  scope="col"> {{ f.presentation_skills }}
+                                </td>
+
+                                <td class="header"  scope="col">  {{ "{0:.1f}".format(((f.automation_frameworks)+(f.kpis)+
+                                        (f.edt)+(f.opensource)+(f.intellectual_capital)+(f.presentation_skills))/6) }}
+                                </td>
+
+                                <div class="buttons">
+
+                                <td scope="col"> <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Erase</button></td>
+                           <!-- Modal -->
+                                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog" role="document">
+                                     <div class="modal-content">
+                                         <div class="modal-header">
+                                             <h5 class="modal-title" id="deleteModalLabel">Erase Evaluation?</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                 <span aria-hidden="true">&times;</span>
+                                             </button>
+                                         </div>
+
+                                         <div class="modal-footer">
+                                             <button type="button" class="btn btn-success" data-dismiss="modal">Don't Erase</button>
+
+                                             <form action="{{ url_for('finals.delete_evalaution_form', final_evaluation_id = f.final_evaluation_id) }}" method="POST">
+                                                 <input class="btn btn-danger" type="submit" value="Borrar">
+                                             </form>
+                                         </div>
+                                     </div>
+                                 </div>
+                           </div>
+
+
+  </div>
+
+                                </div>
+
+
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+              </div></div>
+
+
+
+
+
+{% endif %}
+</div>
+{% endif %}
+
+{% endblock main_content %}

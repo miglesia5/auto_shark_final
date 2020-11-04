@@ -1,0 +1,89 @@
+{% extends 'main/layout.html' %}
+
+{% block additional_css %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='uxdesigns4.css') }}"/>
+
+{% endblock %}
+
+{% block main_content %}
+
+        <div class="container">
+
+            {% if current_user.is_authenticated %}
+
+            <div class="hero">
+            <h1>Automation Sharks</h1>
+
+            <small>
+              All the Programs
+            </small>
+            <div class="stats">
+        <div class="stat"><a href="{{ url_for('admins.index') }}"> Back to Dashboard </a></div>
+        <div class="stat">{% if category_count %}<a href="{{ url_for('categories.table_categories') }}"> {{ category_count }} Categorias </a> {% endif %}</div>
+        <div class="stat"> {% if product_count %} <a href="{{ url_for('products.table_products') }}">{{ product_count }} Productos</a>  {% endif %}</div>
+        <div class="stat"> {% if user_count %} <a href="{{ url_for('admins.user_stats') }}">{{ user_count }} Clientes</a>  {% endif %}</div>
+    </div>
+
+            <div class="row">
+
+            <div class="col-md-2">
+                <div class="actions">
+                    <h2>Stats</h2>
+
+                    <hr>
+                </div>
+            </div>
+
+
+            <div class="col-md-10">
+
+                <div class="content-section-admin-user">
+
+                <legend class="border-bottom mb-2">All the Programs</legend>
+
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-condensed table-striped" id="Cart">
+                            <thead>
+                            <tr>
+                                <th scope="col">Programs</th>
+                                <th scope="col">Picture</th>
+                                <th scope="col">Actions</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for p in programs %}
+                                <td scope="col"> {{ p.program_name }}</td>
+                                <td scope="col"><img class="category_table" src="{{ url_for('static', filename='photos/' + p.image_file) }}"></td>
+
+
+                                <td scope="col"> <a class="btn btn-secondary btn-sm m-1" href="{{ url_for('programs.program', id=p.id) }}">Details</a> </td>
+
+                                <td scope="col"> <a class="btn btn-primary btn-sm m-1" href="{{ url_for('programs.update_program', id=p.id) }}">Update</a> </td>
+
+
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="col-md-0">
+            </div>
+
+        </div>
+
+         </div>
+
+        </div>
+            {% endif %}
+
+{% endblock main_content %}
